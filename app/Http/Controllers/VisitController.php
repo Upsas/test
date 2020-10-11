@@ -7,11 +7,16 @@ use Illuminate\Support\Facades\Auth;
 
 class VisitController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
 
     public function index()
     {
         $id = Auth::id();
-        $visits = Visit::where('specialist_id', $id)->orderBy('reservation_status', 'desc')->orderBy('time', 'asc')->take(9)->get();
+        $visits = Visit::where('specialist_id', $id)->where('reservation_status', '1')->orderBy('reservation_status', 'desc')->orderBy('time', 'asc')->take(9)->get();
         return view('visits.index', compact('id', 'visits'));
 
     }
@@ -34,9 +39,28 @@ class VisitController extends Controller
         return redirect()->back();
     }
 
+    public function active($reservation_id)
+    {
+        $visit = Visit::where('reservation_id', $reservation_id)->first();
+        Visit::where('active', '=', 1)->where('specialist_id', $visit->specialist_id)->update(['active' => 0]);
+        ($visit->active === 0) ? $visit->active = 1 : '';
+        $visit->save();
+        return redirect()->back();
+    }
+
     public function show()
     {
-        return view('visits.show');
+        $id = Auth::id();
+        $visits = Visit::where('specialist_id', $id)->orderBy('reservation_status', 'desc')->orderBy('time', 'asc')->take(9)->get();
+        return view('visits.show', compact('id', 'visits'));
+    }
+
+    public function update($reservation_id)
+    {
+        $visit = Visit::where('reservation_id', $reservation_id)->first();
+        $visit->reservation_status = '0';
+        $visit->save();
+        return redirect()->back();
     }
 
     protected function validateData()

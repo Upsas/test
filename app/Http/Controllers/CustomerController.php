@@ -9,6 +9,7 @@ class CustomerController extends Controller
 
     public function welcome()
     {
+
         return view('welcome');
     }
 

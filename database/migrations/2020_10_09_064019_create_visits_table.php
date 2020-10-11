@@ -16,6 +16,8 @@ class CreateVisitsTable extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->dateTime('time');
+            $table->integer('reservation_status')->default(0);
+            $table->integer('active')->default(0);
             $table->integer('specialist_id');
             $table->integer('reservation_id');
             $table->timestamps();

@@ -21,8 +21,12 @@ Route::delete('/reservation-{reservation_id}-show_reservation', 'CustomerControl
 // Controllers for visit managment
 Route::get('/visits', 'VisitController@index');
 Route::post('/visits', 'VisitController@store');
+Route::get('/visits/all', 'VisitController@show');
 Route::delete('/visits/{reservation_id}', 'VisitController@destroy');
-
+Route::put('/visits/{reservation_id}', 'VisitController@update');
+Route::post('/visits/{reservation_id}', 'VisitController@active');
+// Display screen
+Route::get('/display/all', 'DisplayController@index');
 // Disabling register
 Auth::routes([
     'register' => false,

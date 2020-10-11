@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+@auth
+<h2 class="text-center">Go view your visits!</h2>
+<h4 class="text-center"><a class="text-muted" href="/visits">View Visits</a></h4>
+@endauth
+
+{{-- @guest --}}
+
 @if(session()->has('message'))
 <div class="d-flex align-center justify-content-center">
     <div class="text-center alert alert-danger w-50">
@@ -13,7 +21,7 @@
 
 
 <div class='border border-dark p-5 w-25 mx-auto bg-white'>
-    <form method="post" action="/customers">
+    <form method="post" action="/customers/">
         @csrf
 
         <div class="form-group">
@@ -33,4 +41,5 @@
         </div>
     </form>
 </div>
+{{-- @endguest --}}
 @endsection

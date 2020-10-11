@@ -3,30 +3,9 @@
 @section('content')
 
 
-<h1 class="text-center">Add avaliable visits </h1>
-<div class="form-group d-flex align-center justify-content-center">
-    <form action="/visits" method="POST">
-        @csrf
-        @php
-        $reservation_id = range(50,500);
-        shuffle($reservation_id)
-        @endphp
-        <label for="date">Date<small class="d-block">(e.g. 2020-05-20 15:00 )</small></label>
-        @error('date')
-        <div class="d-block text-danger"> {{ $message }} </div>
-        @enderror
-        <input class="form-control @error('date') is-invalid @enderror" placeholder="add your avaliable date"
-            type="datetime" name="date" id="date"
-            value="{{Carbon\Carbon::now()->format('Y-m-d')." ".Carbon\Carbon::now()->format('H:i')}}">
-
-        <input type="hidden" name="id" value="{{ $id }}">
-        <input type="hidden" name="reservation_id" value="{{ $reservation_id[0] }}">
-        <button class="mt-2  btn btn-outline-primary">Add</button>
-    </form>
-</div>
 <div>
-    <h1 class="text-center my-5">Your incoming reserved visits</h1>
-
+    <h1 class="text-center mt-5">Your reserved visits</h1>
+    <h4 class="text-center"><a class="mb-2 text-muted" href="/visits/all">Add Visits</a></h4>
     <table class="table table-hover mx-auto w-75">
         <thead>
             <tr>
@@ -35,20 +14,32 @@
                 <th scope="col">Action</th>
             </tr>
         </thead>
+        {{ session()->get('active') }}
+        @php
+
+        @endphp
         @forelse ($visits as $visit)
-        <tr>
+        @php
+        $arr[] = ($visit->active);
+
+        @endphp
+        <tr class="{{  ($visit->active === 1) ? "bg-warning" : ''  }}">
             <td>{{ $visit->time }} </td>
             <td> {{ $visit->reservation_status === 1 ? 'Yes' : 'No' }}</td>
-            <td class="row"> <a class="btn btn-outline-success">Started</a>
-                <form class="pl-2" action="" method="post">
+            <td class="row ">
+                <form action="/visits/{{ $visit->reservation_id }}" method="post">
                     @csrf
-                    <button class="btn btn-outline-secondary">Ended</button>
+                    <button class="btn btn-outline-success">Started</button>
                 </form>
                 <form class="pl-2" action="/visits/{{ $visit->reservation_id }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-outline-danger">Delete</button>
-
+                    <button class="btn btn-outline-secondary">Ended</button>
+                </form>
+                <form class="pl-2" action="/visits/{{ $visit->reservation_id }}" method="post">
+                    @csrf
+                    @method('PUT')
+                    <button class="btn btn-outline-danger">Cancel</button>
                 </form>
             </td>
         </tr>
@@ -56,7 +47,6 @@
         <h2 class="text-center">No visits found</h2>
         @endforelse
     </table>
-
 </div>
 
 @endsection
