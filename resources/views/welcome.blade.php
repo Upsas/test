@@ -7,7 +7,7 @@
 <h4 class="text-center"><a class="text-muted" href="/visits">View Visits</a></h4>
 @endauth
 
-{{-- @guest --}}
+@guest
 
 @if(session()->has('message'))
 <div class="d-flex align-center justify-content-center">
@@ -41,5 +41,5 @@
         </div>
     </form>
 </div>
-{{-- @endguest --}}
+@endguest
 @endsection

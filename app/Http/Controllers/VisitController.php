@@ -58,6 +58,9 @@ class VisitController extends Controller
     public function update($reservation_id)
     {
         $visit = Visit::where('reservation_id', $reservation_id)->first();
+        if ($visit->active === 1) {
+            $visit->active = 0;
+        }
         $visit->reservation_status = '0';
         $visit->save();
         return redirect()->back();
