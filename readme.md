@@ -1,5 +1,5 @@
-<h1>How it works? </h1>
-<p>First of all we need to download code and run command </p>
-``` html 
-npm install
-`````
+<h1>Gettin started </h1>
+<p>This is an example of how to list things you need to use the software and how to install them. </p>
+
+<p>Secondary we need to start a server </p>
+<div>
