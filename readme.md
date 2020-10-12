@@ -1,3 +1,5 @@
-<h1>Hello this is my test readme </h1>
- npm install
-```
+<h1>How it works? </h1>
+<p>First of all we need to download code and run command </p>
+``` html 
+npm install
+`````
