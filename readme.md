@@ -40,7 +40,7 @@ Klientas pasirenka jam tinkamą datą ir patikrina ar yra laisvų specialistų. 
 
 Specialistas negali užsiregistruoti jis pridedamas prie sistemos.
 
-Pridedamas specialistas panaudojant php tinker
+Pridedamas specialistas panaudojant php artisan tinker
 
     $user = new App\User();
     $user->password = Hash::make('pasirenkamas slaptažodis');
