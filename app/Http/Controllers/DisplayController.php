@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Visit;
+use App\Repositories\DisplayRepository;
 
 class DisplayController extends Controller
 {
-    public function __construct()
+
+    private $displayRepository;
+
+    public function __construct(DisplayRepository $displayRepository)
     {
+        $this->displayRepository = $displayRepository;
         $this->middleware('auth');
     }
 
     public function index()
     {
-        $visits = Visit::where('active', 1)->orWhere('reservation_status', 1)->orderBy('active', 'desc')->orderBy('time', 'asc')->take(5)->get();
+        $visits = $this->displayRepository->displayVisits();
         return view('display.index', compact('visits'));
     }
 }

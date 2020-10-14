@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\VisitRepository;
 use App\Visit;
 use Illuminate\Support\Facades\Auth;
 
 class VisitController extends Controller
 {
-    public function __construct()
+    private $visitRepository;
+
+    public function __construct(VisitRepository $visitRepository)
     {
+        $this->visitRepository = $visitRepository;
         $this->middleware('auth');
 
     }
@@ -16,14 +20,13 @@ class VisitController extends Controller
     public function index()
     {
         $id = Auth::id();
-        $visits = Visit::where('specialist_id', $id)->where('reservation_status', '1')->orderBy('reservation_status', 'desc')->orderBy('time', 'asc')->take(9)->get();
+        $visits = $this->visitRepository->getSpecialistReservedVisits($id);
         return view('visits.index', compact('id', 'visits'));
 
     }
 
-    public function store()
+    public function store(Visit $visit)
     {
-        $visit = new Visit();
 
         $this->validateData($visit->time = request('date'));
         $visit->specialist_id = request('id');
@@ -34,16 +37,20 @@ class VisitController extends Controller
 
     public function destroy($reservation_id)
     {
-        $visit = Visit::where('reservation_id', $reservation_id)->first();
+        $visit = $this->visitRepository->getVisitByReservationId($reservation_id);
         $visit->delete();
         return redirect()->back();
     }
 
     public function active($reservation_id)
     {
-        $visit = Visit::where('reservation_id', $reservation_id)->first();
-        Visit::where('active', '=', 1)->where('specialist_id', $visit->specialist_id)->update(['active' => 0]);
-        ($visit->active === 0) ? $visit->active = 1 : '';
+        $visit = $this->visitRepository->getVisitByReservationId($reservation_id);
+
+        $this->visitRepository->getActiveReservation($visit->specialist_id)
+            ->update(['active' => 0]);
+        if ($visit->active === 0) {
+            $visit->active = 1;
+        }
         $visit->save();
         return redirect()->back();
     }
@@ -51,13 +58,13 @@ class VisitController extends Controller
     public function show()
     {
         $id = Auth::id();
-        $visits = Visit::where('specialist_id', $id)->orderBy('reservation_status', 'desc')->orderBy('time', 'asc')->take(9)->get();
+        $visits = $this->visitRepository->getSpecialistVisits($id);
         return view('visits.show', compact('id', 'visits'));
     }
 
     public function update($reservation_id)
     {
-        $visit = Visit::where('reservation_id', $reservation_id)->first();
+        $visit = $this->visitRepository->getVisitByReservationId($reservation_id);
         if ($visit->active === 1) {
             $visit->active = 0;
         }

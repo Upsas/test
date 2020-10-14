@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Visit;
+use App\Repositories\Customers\CustomerRepositoryInterface;
 
 class CustomerController extends Controller
 {
+
+    private $customerRepository;
+
+    public function __construct(CustomerRepositoryInterface $customerRepository)
+    {
+        $this->customerRepository = $customerRepository;
+    }
 
     public function welcome()
     {
@@ -17,13 +24,13 @@ class CustomerController extends Controller
     {
 
         $this->validateData($time = request('check_date'));
-        $visits = Visit::where('time', 'like', $time . '%')->where('reservation_status', '0')->orderBy('time', 'asc')->get();
+        $visits = $this->customerRepository->showCustomerVisits($time);
         return view('customers.index', compact('visits', 'time'));
     }
 
     public function show($reservation_id)
     {
-        $visits = Visit::where('reservation_id', $reservation_id)->first();
+        $visits = $this->customerRepository->showCustomersReservationById($reservation_id);
         if (!empty($visits)) {
             $visits->reservation_status = '1';
             $visits->save();
@@ -33,14 +40,14 @@ class CustomerController extends Controller
     public function show_reservation()
     {
         $this->validateDataReservation($id = request('reservation_check'));
-        $reservation = Visit::where('reservation_id', $id)->where('reservation_status', 1)->first();
+        $reservation = $this->customerRepository->showCustomersReservation($id);
         return view('customers.show_reservation', compact('id', 'reservation'));
 
     }
 
     public function destroy($reservation_id)
     {
-        $visit = Visit::where('reservation_id', $reservation_id)->first();
+        $visit = $this->customerRepository->showCustomersReservationById($reservation_id);
         $visit->reservation_status = '0';
         $visit->save();
         return redirect('/')->with('message', 'you canceled reservation succesfully');
