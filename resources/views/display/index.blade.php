@@ -14,7 +14,7 @@
     </thead>
     @forelse ($visits as $visit)
 
-    <tr class="{{ ($visit->active === 1) ? 'bg-warning' : '' }}">
+    <tr class="@if ($visit->active === 1) {{ 'bg-warning' }} @endif">
         <td>{{ date('Y-m-d H:i', strtotime($visit->time))  }} </td>
         <td>
             {{ ($visit->active === 1) ? 'Active' : 'Reserved' }}</td>

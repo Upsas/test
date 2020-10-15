@@ -23,7 +23,7 @@
         $arr[] = ($visit->active);
 
         @endphp
-        <tr class="{{  ($visit->active === 1) ? "bg-warning" : ''  }}">
+        <tr class="@if  ($visit->active === 1) {{ 'bg-warning' }} @endif">
             <td>{{ $visit->time }} </td>
             <td> {{ $visit->reservation_status === 1 ? 'Yes' : 'No' }}</td>
             <td class="row ">
