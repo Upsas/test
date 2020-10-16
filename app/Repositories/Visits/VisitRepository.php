@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Visits;
 
-use App\Visit;
+use App\Models\Visit;
 
-class VisitRepository
+class VisitRepository implements VisitRepositoryInterface
 {
     public function getSpecialistVisits($id)
     {

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Customers;
 
-use App\Visit;
+use App\Models\Visit;
 
 class CustomerRepository implements CustomerRepositoryInterface
 {

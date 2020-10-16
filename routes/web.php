@@ -15,6 +15,7 @@
 Route::get('/', 'CustomerController@welcome');
 Route::post('/customers', 'CustomerController@index');
 Route::post('/customers/{reservation_id}', 'CustomerController@show');
+Route::get('/customers/{reservation_id}', 'CustomerController@show');
 Route::delete('/customers/{reservation_id}', 'CustomerController@destroy');
 Route::post('/reservation-{reservation_id}-show_reservation', 'CustomerController@show_reservation');
 Route::delete('/reservation-{reservation_id}-show_reservation', 'CustomerController@destroy');

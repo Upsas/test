@@ -12,6 +12,7 @@
             <th scope="col">Action</th>
         </tr>
     </thead>
+
     @forelse ($visits as $visit)
     <tr>
         <td>{{ $visit->time }} </td>

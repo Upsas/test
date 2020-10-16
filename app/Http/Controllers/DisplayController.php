@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\DisplayRepository;
+use App\Services\Displays\Displays;
 
 class DisplayController extends Controller
 {
 
-    private $displayRepository;
+    private $displays;
 
-    public function __construct(DisplayRepository $displayRepository)
+    public function __construct(Displays $displays)
     {
-        $this->displayRepository = $displayRepository;
         $this->middleware('auth');
+
+        $this->displays = $displays;
     }
 
     public function index()
     {
-        $visits = $this->displayRepository->displayVisits();
-        return view('display.index', compact('visits'));
+        $visits = $this->displays->display();
+        return view('display.index', $visits);
     }
 }

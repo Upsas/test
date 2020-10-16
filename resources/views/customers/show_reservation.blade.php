@@ -3,7 +3,6 @@
 @section('content')
 <h1 class="text-center">Details for reservation {{ $id }}</h1>
 <h3 class="text-center "><a class="text-muted" href="/">Go back</a></h3>
-
 @if (empty($reservation))
 <h2 class="text-center">No reservation by this ID </h2>
 @else

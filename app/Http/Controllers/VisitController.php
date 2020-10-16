@@ -2,81 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\VisitRepository;
-use App\Visit;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Visit;
+use App\Services\Visits\Visits;
 
 class VisitController extends Controller
 {
-    private $visitRepository;
+    private $visitsRepository;
 
-    public function __construct(VisitRepository $visitRepository)
+    public function __construct(Visits $visitsRepository)
     {
-        $this->visitRepository = $visitRepository;
         $this->middleware('auth');
+        $this->visitsRepository = $visitsRepository;
 
     }
 
     public function index()
     {
-        $id = Auth::id();
-        $visits = $this->visitRepository->getSpecialistReservedVisits($id);
-        return view('visits.index', compact('id', 'visits'));
+        $visits = $this->visitsRepository->getReservedSpecialistVisits();
+        return view('visits.index', $visits);
 
     }
 
     public function store(Visit $visit)
     {
-
-        $this->validateData($visit->time = request('date'));
-        $visit->specialist_id = request('id');
-        $visit->reservation_id = request('reservation_id');
-        $visit->save();
+        $this->visitsRepository->addVisits($visit);
         return redirect()->back();
     }
 
     public function destroy($reservation_id)
     {
-        $visit = $this->visitRepository->getVisitByReservationId($reservation_id);
-        $visit->delete();
+        $this->visitsRepository->deleteVisit($reservation_id);
         return redirect()->back();
     }
 
     public function active($reservation_id)
     {
-        $visit = $this->visitRepository->getVisitByReservationId($reservation_id);
-
-        $this->visitRepository->getActiveReservation($visit->specialist_id)
-            ->update(['active' => 0]);
-        if ($visit->active === 0) {
-            $visit->active = 1;
-        }
-        $visit->save();
+        $this->visitsRepository->active($reservation_id);
         return redirect()->back();
     }
 
     public function show()
     {
-        $id = Auth::id();
-        $visits = $this->visitRepository->getSpecialistVisits($id);
-        return view('visits.show', compact('id', 'visits'));
+        $visits = $this->visitsRepository->getSpecialistVisits();
+        return view('visits.show', $visits);
     }
 
     public function update($reservation_id)
     {
-        $visit = $this->visitRepository->getVisitByReservationId($reservation_id);
-        if ($visit->active === 1) {
-            $visit->active = 0;
-        }
-        $visit->reservation_status = '0';
-        $visit->save();
+        $this->visitsRepository->update($reservation_id);
         return redirect()->back();
     }
 
-    protected function validateData()
-    {
-        return request()->validate([
-            'date' => 'required | date_format:Y-m-d H:i',
-        ]);
-    }
 }

@@ -2,67 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Customers\CustomerRepositoryInterface;
+use App\Services\Customers\Customers;
 
 class CustomerController extends Controller
 {
 
-    private $customerRepository;
+    private $customers;
 
-    public function __construct(CustomerRepositoryInterface $customerRepository)
+    public function __construct(Customers $customers)
     {
-        $this->customerRepository = $customerRepository;
+        $this->customers = $customers;
     }
 
     public function welcome()
     {
-
         return view('welcome');
     }
 
     public function index()
     {
 
-        $this->validateData($time = request('check_date'));
-        $visits = $this->customerRepository->showCustomerVisits($time);
-        return view('customers.index', compact('visits', 'time'));
+        $visits = ($this->customers->checkDate());
+        return view('customers.index', $visits);
     }
 
     public function show($reservation_id)
     {
-        $visits = $this->customerRepository->showCustomersReservationById($reservation_id);
-        if (!empty($visits)) {
-            $visits->reservation_status = '1';
-            $visits->save();
-        }
-        return view('customers.show', compact('reservation_id', 'visits'));
+        $visits = $this->customers->reserveVisit($reservation_id);
+        return view('customers.show', $visits);
     }
     public function show_reservation()
     {
-        $this->validateDataReservation($id = request('reservation_check'));
-        $reservation = $this->customerRepository->showCustomersReservation($id);
-        return view('customers.show_reservation', compact('id', 'reservation'));
+        $reservation = $this->customers->checkVisit();
+        return view('customers.show_reservation', $reservation);
 
     }
 
     public function destroy($reservation_id)
     {
-        $visit = $this->customerRepository->showCustomersReservationById($reservation_id);
-        $visit->reservation_status = '0';
-        $visit->save();
+        $this->customers->cancelVisit($reservation_id);
         return redirect('/')->with('message', 'you canceled reservation succesfully');
     }
 
-    protected function validateData()
-    {
-        return request()->validate([
-            'check_date' => 'required',
-        ]);
-    }
-    protected function validateDataReservation()
-    {
-        return request()->validate([
-            'reservation_check' => 'required | numeric',
-        ]);
-    }
 }

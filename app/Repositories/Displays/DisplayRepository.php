@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Displays;
 
-use App\Visit;
+use App\Models\Visit;
 
-class DisplayRepository
+class DisplayRepository implements DisplayRepositoryInterface
 {
     public function displayVisits()
     {
