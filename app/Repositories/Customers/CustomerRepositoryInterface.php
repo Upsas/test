@@ -1,11 +1,11 @@
-<?php
+ <?php
 
-namespace App\Repositories\Customers;
+// namespace App\Repositories\Customers;
 
-interface CustomerRepositoryInterface
-{
-    public function showCustomerVisits($time);
-    public function showCustomersReservationById($reservation_id);
-    public function showCustomersReservation($id);
+// interface CustomerRepositoryInterface
+// {
+//     public function showCustomerVisits($time);
+//     public function showCustomersReservationById($reservation_id);
+//     public function showCustomersReservation($id);
 
-}
+// }

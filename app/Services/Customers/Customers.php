@@ -1,13 +1,13 @@
 <?php
 namespace App\Services\Customers;
 
-use App\Repositories\Customers\CustomerRepositoryInterface;
+use App\Repositories\Customers\CustomerRepository;
 
 class Customers
 {
 
     private $customerRepository;
-    public function __construct(CustomerRepositoryInterface $customerRepository)
+    public function __construct(CustomerRepository $customerRepository)
     {
         $this->customerRepository = $customerRepository;
     }

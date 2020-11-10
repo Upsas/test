@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Displays;
+// namespace App\Repositories\Displays;
 
-interface DisplayRepositoryInterface
-{
-    public function displayVisits();
+// interface DisplayRepositoryInterface
+// {
+//     public function displayVisits();
 
-}
+// }

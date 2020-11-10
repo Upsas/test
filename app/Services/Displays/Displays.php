@@ -2,13 +2,13 @@
 
 namespace App\Services\Displays;
 
-use App\Repositories\Displays\DisplayRepositoryInterface;
+use App\Repositories\Displays\DisplayRepository;
 
 class Displays
 {
 
     private $displayRepository;
-    public function __construct(DisplayRepositoryInterface $displayRepository)
+    public function __construct(DisplayRepository $displayRepository)
     {
         $this->displayRepository = $displayRepository;
     }

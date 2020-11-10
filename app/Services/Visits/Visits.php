@@ -3,7 +3,7 @@
 namespace App\Services\Visits;
 
 use App\Models\Visit;
-use App\Repositories\Visits\VisitRepositoryInterface;
+use App\Repositories\Visits\VisitRepository;
 use Illuminate\Support\Facades\Auth;
 
 class Visits
@@ -11,7 +11,7 @@ class Visits
 
     private $visitsRepository;
 
-    public function __construct(VisitRepositoryInterface $visitsRepository)
+    public function __construct(VisitRepository $visitsRepository)
     {
         $this->visitsRepository = $visitsRepository;
 

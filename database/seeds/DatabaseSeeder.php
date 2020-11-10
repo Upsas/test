@@ -14,9 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(Visit::class, 100)->create();
-        // $this->call([
-        //     VisitTableSeeder::class,
-        // ]);
-        // factory(User::class, 50)->create();
+        factory(User::class, 50)->create();
     }
 }
