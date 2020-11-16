@@ -4,7 +4,7 @@ namespace App\Repositories\Displays;
 
 use App\Models\Visit;
 
-class DisplayRepository implements DisplayRepositoryInterface
+class DisplayRepository
 {
     public function displayVisits()
     {

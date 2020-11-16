@@ -4,7 +4,7 @@ namespace App\Repositories\Customers;
 
 use App\Models\Visit;
 
-class CustomerRepository implements CustomerRepositoryInterface
+class CustomerRepository
 {
 
     public function showCustomerVisits($time)

@@ -4,7 +4,7 @@ namespace App\Repositories\Visits;
 
 use App\Models\Visit;
 
-class VisitRepository implements VisitRepositoryInterface
+class VisitRepository
 {
     public function getSpecialistVisits($id)
     {
