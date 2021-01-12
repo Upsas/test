@@ -62,7 +62,7 @@ Rodymo ekranas rodo kokie šiuo metu susitikimai vykstą ir kokie artimiausi yra
 # Sistemos duomenys ir veikimas
 
     | Controllers   | Repositories  | Views     | Service  | Models |
-    | ------------- |:-------------:| -----:    | -------  | ------ |
+    | ------------- | ------------- | ----------| -------  | ------ |
     | Visit         | Visit         | Visit     | Visit    | Visit  |
     | Customer      | Customer      | Customer  | Customer | User   |
     | Display       | Display       | Display   | Display  |        |
