@@ -16,4 +16,9 @@ class DisplayRepository
             ->get();
     }
 
+    public function displayUpcomingVisits($id)
+    {
+        return Visit::where('specialist_id', $id)->orderBy('time', 'desc')->take(5)->get();
+    }
+
 }

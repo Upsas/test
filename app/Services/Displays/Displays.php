@@ -3,6 +3,7 @@
 namespace App\Services\Displays;
 
 use App\Repositories\Displays\DisplayRepository;
+use Illuminate\Support\Facades\Auth;
 
 class Displays
 {
@@ -15,8 +16,10 @@ class Displays
 
     public function display()
     {
+        $id = Auth::id();
         $visits = $this->displayRepository->displayVisits();
-        return compact('visits');
+        $upcomings = $this->displayRepository->displayUpcomingVisits($id);
+        return compact('visits', 'upcomings');
     }
 
 }

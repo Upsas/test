@@ -20,7 +20,7 @@
         @endphp
         @forelse ($visits as $visit)
         @php
-        $arr[] = ($visit->active);
+        // $arr[] = ($visit->active);
 
         @endphp
         <tr class="@if  ($visit->active === 1) {{ 'bg-warning' }} @endif">

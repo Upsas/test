@@ -23,6 +23,17 @@
     @empty
     <h2 class=" text-center">No records to show</h2>
     @endforelse
+    @forelse ($upcomings as $upcoming)
+
+    <tr class="@if ($upcoming->active === 1) {{ 'bg-warning' }} @endif">
+        <td>{{ date('Y-m-d H:i', strtotime($upcoming->time))  }} </td>
+        <td>
+            {{ ($upcoming->active === 1) ? 'Active' : 'Reserved' }}</td>
+    </tr>
+    </div>
+    @empty
+    <h2 class=" text-center">No records to show</h2>
+    @endforelse
 </table>
 
 
