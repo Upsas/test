@@ -2,7 +2,7 @@
 
 ## Įdiegimas
 
-Prieš pradėdami, patikrinkite oficialų laravel diegimo vadovą, kokie yra serverio reikalavimai [Official Documentation](https://laravel.com/docs/6.x/installation#installation)
+Prieš pradėdami, patikrinkite oficialų laravel v7 diegimo vadovą, kokie yra serverio reikalavimai [Official Documentation](https://laravel.com/docs/6.x/installation#installation)
 
 Klonuokite saugyklą
 
