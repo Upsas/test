@@ -61,11 +61,11 @@ Rodymo ekranas rodo kokie šiuo metu susitikimai vykstą ir kokie artimiausi yra
 
 # Sistemos duomenys ir veikimas
 
-    | Controllers   | Repositories  | Views     | Service  | Models |
-    | ------------- | ------------- | --------- | -------- | ------ |
-    | Visit         | Visit         | Visit     | Visit    | Visit  |
-    | Customer      | Customer      | Customer  | Customer | User   |
-    | Display       | Display       | Display   | Display  |        |
+    | Controllers | Repositories  | Views    | Service  | Models |
+    | ----------- | ------------- | -------- | -------- | ------ |
+    | Visit       | Visit         | Visit    | Visit    | Visit  |
+    | Customer    | Customer      | Customer | Customer | User   |
+    | Display     | Display       | Display  | Display  |        |
 
     * Controllers yra kaip "pasiuntiniukai" juose nevygdoma jokia logika. Jie skirti nukreipti tam tikrus duomenis ir puslapius ir reikiamas vietas.
     * Repositories vyksta visos užklausos su duomenų bazę.
